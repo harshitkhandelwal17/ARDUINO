@@ -1,0 +1,51 @@
+int rightir = 10;
+int leftir = 12;
+
+int LMotor1 = 3;
+int LMotor2 = 5;
+int RMotor1 = 6;
+int RMotor2 = 9;
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(LMotor1,OUTPUT);
+  pinMode(LMotor2,OUTPUT);
+  pinMode(RMotor1,OUTPUT);
+  pinMode(RMotor2,OUTPUT);  
+
+  pinMode(leftir, INPUT);
+  pinMode(rightir, INPUT);
+}
+
+void loop()
+{
+  int leftsensor = digitalRead(leftir);
+  int rightsensor = digitalRead(rightir);
+  Serial.print(leftsensor);
+  Serial.print(rightsensor);
+  Serial.print("");
+
+  if (leftsensor==1 || rightsensor == 1)
+  {
+    //Backward
+    analogWrite(LMotor1,0);
+    analogWrite(LMotor2,170);
+    analogWrite(RMotor1,0);
+    analogWrite(RMotor2,170);
+    delay(1000);
+    //Right
+    analogWrite(LMotor1,170);
+    analogWrite(LMotor2,0);
+    analogWrite(RMotor1,0);
+    analogWrite(RMotor2,0);
+    delay(1000);    
+  }
+  else 
+  {
+    analogWrite(LMotor1,170);
+    analogWrite(LMotor2,0);
+    analogWrite(RMotor1,170);
+    analogWrite(RMotor2,0);
+  }
+}
