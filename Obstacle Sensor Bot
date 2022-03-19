@@ -1,0 +1,62 @@
+#define echoPin 10
+#define trigPin 11
+
+int LMotor1 = 3;
+int LMotor2 = 5;
+int RMotor1 = 6;
+int RMotor2 = 9;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+  Serial.println("ultrasonic sensor HC-sr04 test");
+  pinMode(LMotor1, OUTPUT);
+  pinMode(LMotor2, OUTPUT);
+  pinMode(RMotor1, OUTPUT);
+  pinMode(RMotor2, OUTPUT);
+
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+
+  if (distance < 20)
+  {
+    analogWrite (LMotor1, 0);
+    analogWrite (LMotor2, 0);
+    analogWrite (RMotor1, 0);
+    analogWrite (RMotor2, 0);
+    delay(250);
+
+    analogWrite (LMotor1, 0);
+    analogWrite (LMotor2, 170);
+    analogWrite (RMotor1, 0);
+    analogWrite (RMotor2, 170);
+
+    analogWrite (LMotor1, 170);
+    analogWrite (LMotor2, 0);
+    analogWrite (RMotor1, 0);
+    analogWrite (RMotor2, 0);
+
+    analogWrite (LMotor1, 0);
+    analogWrite (LMotor2, 0);
+    analogWrite (RMotor1, 170);
+    analogWrite (RMotor2, 0);
+
+  }
+  else
+  { analogWrite (LMotor1, 170);
+    analogWrite (LMotor2, 0);
+    analogWrite (RMotor1, 170);
+    analogWrite (RMotor2, 0);
+  }
+}
