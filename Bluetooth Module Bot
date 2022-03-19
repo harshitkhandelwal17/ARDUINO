@@ -1,0 +1,61 @@
+#include <SoftwareSerial.h>
+int LMotor1 = 3;        
+  int LMotor2 = 5;   
+  int RMotor1 = 6;
+  int RMotor2 = 9;
+
+SoftwareSerial BT(11, 10); //TX, RX respectively For BT in code first rx then txc
+String readdata;
+
+void setup() {
+  BT.begin(9600);
+  Serial.begin(9600);
+  
+ 
+}
+
+void loop() {
+  while (BT.available())
+  {
+    delay(10);
+    char c = BT.read();
+    readdata +=c;
+  }
+if (readdata.length()>0)
+{
+  Serial.println(readdata);
+
+ if(readdata == "F")
+ {
+  analogWrite (LMotor1, 165);
+  analogWrite (LMotor2, 0);
+  analogWrite (RMotor1, 165 );
+  analogWrite (RMotor2, 0);
+  delay(500);
+ 
+ }
+
+ else if(readdata == "B")
+ {
+  analogWrite (LMotor1, 0);
+  analogWrite (LMotor2, 165);
+  analogWrite (RMotor1, 0);
+  analogWrite (RMotor2, 165);
+  delay(500);
+ }
+ else if(readdata == "R")
+ {
+ analogWrite (LMotor1, 165);
+  analogWrite (LMotor2, 0);
+  analogWrite (RMotor1, 0);
+  analogWrite (RMotor2, 0);
+ }
+ else if(readdata == "L")
+ {
+  analogWrite (LMotor1, 0);
+  analogWrite (LMotor2, 0);
+  analogWrite (RMotor1, 165);
+  analogWrite (RMotor2, 0);
+ }
+}
+}
